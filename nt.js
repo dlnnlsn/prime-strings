@@ -76,7 +76,7 @@ function jacobiSymbol(a, b) {
         b = tmp
     }
     if (a == 0n) {
-        return 0
+        return 0n
     }
     return flip ? -1n : 1n
 }
@@ -91,21 +91,21 @@ function isPrime(num) {
     if (num < 10201n) {
         return true
     }
-    if (!isMillerRabinPseudoprime(num, 2)) {
+    if (!isMillerRabinPseudoprime(num, 2n)) {
         return false
     }
     const isqrt = integerSqrt(num)
     if (isqrt * isqrt == num) {
         return false
     }
-    var D = 5
+    var D = 5n
     var negative = false
-    while (jacobiSymbol(D, num) != -1) {
+    while (jacobiSymbol(D, num) != -1n) {
         if (negative) {
-            D = -D + 2
+            D = -D + 2n
         }
         else {
-            D = -D - 2
+            D = -D - 2n
         }
         negative = !negative
     }
