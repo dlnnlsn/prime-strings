@@ -81,6 +81,82 @@ function jacobiSymbol(a, b) {
     return flip ? -1n : 1n
 }
 
+function findDiscriminantForLucasPseudoPrimeTest(num) {
+    var D = 5n
+    var negative = false
+    while (jacobiSymbol(D, num) != -1n) {
+        if (negative) {
+            D = -D + 2n
+        }
+        else {
+            D = -D - 2n
+        }
+        negative = !negative
+    }
+}
+
+function isStrongLucasPseudoPrime(num, P, Q, D) {
+    var index = num + 1n
+    var powerOfTwo = 0
+    while (index % 2n == 0n) {
+        index /= 2n
+        powerOfTwo++
+    }
+    var U = 1
+    var V = P % num
+    if (V < 0n) {
+        v += num
+    }
+    var Qk = Q % num
+    if (Qk < 0n) {
+        Qk += num
+    }
+    var mask = 1n
+    while (mask <= index) {
+        mask <<= 1n
+    }
+    mask >>= 1n
+    while (mask > 0n) {
+        var newU = (U * V) % num
+        var newV = (V * V - 2 * Qk) % num
+        if (newV < 0n) {
+            newV += num
+        }
+        Qk = (Qk * Qk) % num
+        if (index & mask) {
+            U = newU
+            V = newV
+            newU = P * U + V
+            newU = (newU % 2n == 1) ? (newU + num) / 2n : newU / 2n
+            newV = D * U + P * V
+            newV = (newV % 2n == 1) ? (newV + num) / 2n : newV / 2n
+            newU = newU % num
+            newV = newV % num
+            Qk = (Qk * Q) % num
+        }
+        U = newU
+        V = newV
+        mask >>= 1n
+    }
+    if (U == 0n) {
+        return true
+    }
+    for (var i = 0; i < powerOfTwo; i++) {
+        if (V == 0n) {
+            return true
+        }
+        var newU = (U * V) % num
+        var newV = (V * V - 2 * Qk) % num
+        if (newV < 0n) {
+            newV += num
+        }
+        Qk = (Qk * Qk) % num
+        U = newU
+        V = newV
+    }
+    return false
+}
+
 function isPrime(num) {
     for (const p of smallPrimes) {
         if (num == p) return true
@@ -98,16 +174,14 @@ function isPrime(num) {
     if (isqrt * isqrt == num) {
         return false
     }
-    var D = 5n
-    var negative = false
-    while (jacobiSymbol(D, num) != -1n) {
-        if (negative) {
-            D = -D + 2n
-        }
-        else {
-            D = -D - 2n
-        }
-        negative = !negative
+    const D = findDiscriminantForLucasPseudoPrimeTest(num)
+    const Q = (1n - D)/4n
+    if (!isStrongLucasPseudoPrime(num, 1, Q, D)) {
+        return false
     }
+    if (num < (1n << 64n)) {
+        return true
+    }
+
     return undefined
 }
