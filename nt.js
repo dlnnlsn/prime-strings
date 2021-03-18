@@ -98,5 +98,16 @@ function isPrime(num) {
     if (isqrt * isqrt == num) {
         return false
     }
+    var D = 5
+    var negative = false
+    while (jacobiSymbol(D, num) != -1) {
+        if (negative) {
+            D = -D + 2
+        }
+        else {
+            D = -D - 2
+        }
+        negative = !negative
+    }
     return undefined
 }
