@@ -117,25 +117,27 @@ function isStrongLucasPseudoPrime(num, P, Q, D) {
     }
     mask >>= 1n
     while (mask > 0n) {
-        var newU = (U * V) % num
-        var newV = (V * V - 2 * Qk) % num
-        if (newV < 0n) {
-            newV += num
+        U = (U * V) % num
+        V = (V * V - 2 * Qk) % num
+        if (V < 0n) {
+            V += num
         }
         Qk = (Qk * Qk) % num
         if (index & mask) {
-            U = newU
-            V = newV
-            newU = P * U + V
+            var newU = P * U + V
             newU = (newU % 2n == 1) ? (newU + num) / 2n : newU / 2n
-            newV = D * U + P * V
+            var newV = D * U + P * V
             newV = (newV % 2n == 1) ? (newV + num) / 2n : newV / 2n
-            newU = newU % num
-            newV = newV % num
+            U = newU % num
+            if (U < 0n) {
+                U += num
+            }
+            V = newV % num
+            if (V < 0n) {
+                V += num
+            }
             Qk = (Qk * Q) % num
         }
-        U = newU
-        V = newV
         mask >>= 1n
     }
     if (U == 0n) {
@@ -145,14 +147,12 @@ function isStrongLucasPseudoPrime(num, P, Q, D) {
         if (V == 0n) {
             return true
         }
-        var newU = (U * V) % num
-        var newV = (V * V - 2 * Qk) % num
-        if (newV < 0n) {
-            newV += num
+        U = (U * V) % num
+        V = (V * V - 2 * Qk) % num
+        if (V < 0n) {
+            V += num
         }
         Qk = (Qk * Qk) % num
-        U = newU
-        V = newV
     }
     return false
 }
