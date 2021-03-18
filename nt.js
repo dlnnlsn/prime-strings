@@ -1,5 +1,18 @@
 const smallPrimes = [2n, 3n, 5n, 7n, 11n, 13n, 17n, 19n, 23n, 29n, 31n, 37n, 41n, 43n, 47n, 53n, 59n, 61n, 67n, 71n, 73n, 79n, 83n, 89n, 97n]
 
+function integerSqrt(num) {
+    if (num < 0n) {
+        throw "Can only find the square-root of a positive integer"
+    }
+    var result = num
+    var newNum = (num + 1n) / 2n;
+    while (newNum < result) {
+        result = newNum
+        newNum = (result + num/result) / 2n
+    }
+    return result
+}
+
 function modPow(base, exp, modulus) {
     var mask = 1n
     while (mask <= exp) {
