@@ -102,7 +102,7 @@ function isStrongLucasPseudoPrime(num, P, Q, D) {
         index /= 2n
         powerOfTwo++
     }
-    var U = 1
+    var U = 1n
     var V = P % num
     if (V < 0n) {
         v += num
@@ -118,16 +118,16 @@ function isStrongLucasPseudoPrime(num, P, Q, D) {
     mask >>= 1n
     while (mask > 0n) {
         U = (U * V) % num
-        V = (V * V - 2 * Qk) % num
+        V = (V * V - 2n * Qk) % num
         if (V < 0n) {
             V += num
         }
         Qk = (Qk * Qk) % num
         if (index & mask) {
             var newU = P * U + V
-            newU = (newU % 2n == 1) ? (newU + num) / 2n : newU / 2n
+            newU = (newU % 2n == 1n) ? (newU + num) / 2n : newU / 2n
             var newV = D * U + P * V
-            newV = (newV % 2n == 1) ? (newV + num) / 2n : newV / 2n
+            newV = (newV % 2n == 1n) ? (newV + num) / 2n : newV / 2n
             U = newU % num
             if (U < 0n) {
                 U += num
@@ -148,7 +148,7 @@ function isStrongLucasPseudoPrime(num, P, Q, D) {
             return true
         }
         U = (U * V) % num
-        V = (V * V - 2 * Qk) % num
+        V = (V * V - 2n * Qk) % num
         if (V < 0n) {
             V += num
         }
@@ -176,7 +176,7 @@ function isPrime(num) {
     }
     const D = findDiscriminantForLucasPseudoPrimeTest(num)
     const Q = (1n - D)/4n
-    if (!isStrongLucasPseudoPrime(num, 1, Q, D)) {
+    if (!isStrongLucasPseudoPrime(num, 1n, Q, D)) {
         return false
     }
     if (num < (1n << 64n)) {
