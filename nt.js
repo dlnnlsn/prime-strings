@@ -94,5 +94,9 @@ function isPrime(num) {
     if (!isMillerRabinPseudoprime(num, 2)) {
         return false
     }
+    const isqrt = integerSqrt(num)
+    if (isqrt * isqrt == num) {
+        return false
+    }
     return undefined
 }
