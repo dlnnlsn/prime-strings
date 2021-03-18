@@ -17,6 +17,27 @@ function modPow(base, exp, modulus) {
     return result
 }
 
+function isMillerRabinPseudoprime(num, base) {
+    const numMinusOne = num - 1n
+    var exp = numMinusOne
+    var powerOfTwo = 0
+    while (exp % 2n == 0n) {
+        exp /= 2n
+        powerOfTwo++
+    }
+    var rem = modPow(base, exp, num)
+    if (rem == 1n) {
+        return true
+    }
+    for (var i = 0; i < powerOfTwo; i++) {
+        if (rem == numMinusOne) {
+            return true
+        }
+        rem = (rem * rem) % num
+    }
+    return false
+}
+
 function jacobiSymbol(a, b) {
     if (b < 0n) {
         throw "b must be positive"
@@ -53,6 +74,12 @@ function isPrime(num) {
         if (num % p == 0n) {
             return false
         }
+    }
+    if (num < 10201n) {
+        return true
+    }
+    if (!isMillerRabinPseudoprime(num, 2)) {
+        return false
     }
     return undefined
 }
