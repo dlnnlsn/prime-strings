@@ -11,23 +11,23 @@
 <body>
    <form>
        <label>Find prime numbers with</label>
-       <input type="number">
+       <input type="number" id="numDigits">
        <label>digits containing the string</label>
-       <input type="text" pattern="[0-9]+">
-       <button>Go!</button>
+       <input type="text" pattern="[0-9]+" id="digitString">
+       <button type="button" onclick="findPrimes();">Go!</button>
    </form> 
    <div id="results">
        <ul id="primes">
-           <li class="pseudo-prime"></li>
-           <li class="prime"></li>
-           <li class="prime"></li>
-           <li class="prime"></li>
-           <li class="prime"></li>
-           <li class="prime"></li>
-           <li class="prime"></li>
-           <li class="prime"></li>
-           <li class="prime"></li>
-           <li class="prime"></li>
+           <li class="result-item prime" hidden></li>
+           <li class="result-item prime" hidden></li>
+           <li class="result-item prime" hidden></li>
+           <li class="result-item prime" hidden></li>
+           <li class="result-item prime" hidden></li>
+           <li class="result-item prime" hidden></li>
+           <li class="result-item prime" hidden></li>
+           <li class="result-item prime" hidden></li>
+           <li class="result-item prime" hidden></li>
+           <li class="result-item prime" hidden></li>
        </ul>
        <div class="navigation-buttons">
            <button>Previous</button>

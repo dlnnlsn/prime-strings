@@ -158,7 +158,7 @@ function isStrongLucasPseudoPrime(num, P, Q, D) {
     return false
 }
 
-function isPrime(num) {
+function isBailliePSWPseudoprime(num) {
     for (const p of smallPrimes) {
         if (num == p) return true
         if (num % p == 0n) {
@@ -180,9 +180,10 @@ function isPrime(num) {
     if (!isStrongLucasPseudoPrime(num, 1n, Q, D)) {
         return false
     }
-    if (num < (1n << 64n)) {
-        return true
-    }
+    return true
+}
 
-    return undefined
+function isPrime(num) {
+    if (num > (1n << 64n)) return undefined
+    return isBailliePSWPseudoprime(num)
 }
