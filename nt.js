@@ -93,6 +93,7 @@ function findDiscriminantForLucasPseudoPrimeTest(num) {
         }
         negative = !negative
     }
+    return D
 }
 
 function isStrongLucasPseudoPrime(num, P, Q, D) {
