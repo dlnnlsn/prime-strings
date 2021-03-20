@@ -103,20 +103,26 @@ function isStrongLucasPseudoPrime(num, P, Q, D) {
         index /= 2n
         powerOfTwo++
     }
+    P = P % num
+    if (P < 0n) {
+        P += num
+    }
+    Q = Q % num
+    if (Q < 0n) {
+        Q += num
+    }
+    D = D % num
+    if (D < 0n) {
+        D += num
+    }
     var U = 1n
-    var V = P % num
-    if (V < 0n) {
-        v += num
-    }
-    var Qk = Q % num
-    if (Qk < 0n) {
-        Qk += num
-    }
+    var V = P
+    var Qk = Q
     var mask = 1n
     while (mask <= index) {
         mask <<= 1n
     }
-    mask >>= 1n
+    mask >>= 2n
     while (mask > 0n) {
         U = (U * V) % num
         V = (V * V - 2n * Qk) % num
@@ -130,13 +136,7 @@ function isStrongLucasPseudoPrime(num, P, Q, D) {
             var newV = D * U + P * V
             newV = (newV % 2n == 1n) ? (newV + num) / 2n : newV / 2n
             U = newU % num
-            if (U < 0n) {
-                U += num
-            }
             V = newV % num
-            if (V < 0n) {
-                V += num
-            }
             Qk = (Qk * Q) % num
         }
         mask >>= 1n
