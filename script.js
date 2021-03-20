@@ -33,11 +33,25 @@ function updateResults() {
             const prime = foundPrimes[index]
             const indexOfDigitString = prime.indexOf(digitString)
             const element = prime.substring(0, indexOfDigitString) + '<span class="digit-string">' + digitString + '</span>' + prime.substring(indexOfDigitString + digitString.length)
-            resultsList[index].innerHTML = element
-            resultsList[index].hidden = false
+            resultsList[i].innerHTML = element
+            resultsList[i].hidden = false
         }
         else {
-            resultsList[index].hidden = true
+            resultsList[i].hidden = true
         }
+    }
+}
+
+function onNextClick() {
+    if (currentPage < (Math.ceil(foundPrimes.length / 10) - 1)) {
+        currentPage++
+        updateResults()
+    }
+}
+
+function onPreviousClick() {
+    if (currentPage > 0) {
+        currentPage--
+        updateResults()
     }
 }
