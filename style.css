@@ -8,6 +8,10 @@ body {
     margin: 0;
 }
 
+#input {
+    margin: 0 2em;
+}
+
 #results {
     max-width: 68vw;
     overflow: auto;
