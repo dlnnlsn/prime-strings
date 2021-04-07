@@ -1,6 +1,7 @@
 const resultsList = document.querySelectorAll(".result-item")
 const numDigitsInput = document.getElementById("numDigits")
 const digitStringInput = document.getElementById("digitString")
+const truncationDisclaimer = document.getElementById("list-truncated")
 
 var foundPrimes = []
 var currentPage = 0
@@ -13,6 +14,7 @@ function findPrimes() {
     digitString = digitStringInput.value
     foundPrimes = []
     currentPage = 0
+    truncationDisclaimer.hidden = true
     updateResults()
 
     if (worker !== null) {
@@ -20,6 +22,10 @@ function findPrimes() {
     }
     worker = new Worker("./prime_worker.js")
     worker.onmessage = function(event) {
+        if (event.data === -1) {
+            truncationDisclaimer.hidden = false
+            return
+        }
         foundPrimes.push(event.data)
         updateResults()
     }
@@ -31,10 +37,15 @@ function updateResults() {
         var index = 10 * currentPage + i
         if (index < foundPrimes.length) {
             const prime = foundPrimes[index]
-            const indexOfDigitString = prime.indexOf(digitString)
-            const element = prime.substring(0, indexOfDigitString) + '<span class="digit-string">' + digitString + '</span>' + prime.substring(indexOfDigitString + digitString.length)
+            const primeString = prime.toString()
+            const pseudoPrime = prime > (1n << 64n)
+            const indexOfDigitString = primeString.indexOf(digitString)
+            const element = primeString.substring(0, indexOfDigitString) + '<span class="digit-string">' + digitString + '</span>' + primeString.substring(indexOfDigitString + digitString.length)
             resultsList[i].innerHTML = element
             resultsList[i].hidden = false
+            resultsList[i].classList.remove('prime')
+            resultsList[i].classList.remove('pseudo-prime')
+            resultsList[i].classList.add(pseudoPrime ? 'pseudo-prime' : 'prime')
         }
         else {
             resultsList[i].hidden = true

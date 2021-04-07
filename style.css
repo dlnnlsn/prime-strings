@@ -8,15 +8,19 @@ body {
     margin: 0;
 }
 
-.pseudo-prime::marker {
-    content: '?';
+#results {
+    max-width: 68vw;
+    overflow: auto;
 }
 
-.navigation-buttons {
-    display: flex;
-    flex-direction: row;
+.pseudo-prime::marker {
+    color: cornflowerblue;
+}
+
+.prime::marker {
+    color: darkblue;
 }
 
 .digit-string {
-    color: red;
+    color: blue;
 }

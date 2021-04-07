@@ -30,10 +30,17 @@
            <li class="result-item prime" hidden></li>
            <li class="result-item prime" hidden></li>
        </ul>
-       <div class="navigation-buttons">
-           <button type="button" onclick="onPreviousClick();">Previous</button>
-           <button type="button" onclick="onNextClick();">Next</button>
-       </div>
+   </div>
+   <div class="navigation-buttons">
+       <button type="button" onclick="onPreviousClick();">Previous</button>
+       <button type="button" onclick="onNextClick();">Next</button>
+   </div>
+   <div class="info">
+       <ul id="prime-explainer">
+           <li class="prime">These numbers are prime</li>
+           <li class="pseudo-prime">These numbers are strong Bailie-PSW pseudo-primes</li>
+           <li id="list-truncated" hidden>More than 100 results were found, but only the first 100 are being displayed</li>
+       </ul>
    </div>
 </body>
 </html>

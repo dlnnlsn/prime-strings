@@ -14,11 +14,12 @@ onmessage = function (event) {
                 const num = 10n ** (stringDigits + endDigits) * front + digitString * 10n**endDigits + back
                 if (primesFound.has(num)) continue
                 if (isBailliePSWPseudoprime(num)) {
-                    primesFound.add(num)
-                    postMessage(num.toString())
                     if (primesFound.size == 100) {
+                        postMessage(-1) //Signals that more than 100 primes were found
                         return
                     }
+                    primesFound.add(num)
+                    postMessage(num)
                 }
             }
         }
